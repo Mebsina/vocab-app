@@ -70,6 +70,17 @@ npm run dev
 
 This will start the development server, and your application should be accessible in your browser, connected to your Firebase project.
 
+### 5. Upload Vocabulary Words to Firebase
+
+To populate your Firestore database with the vocabulary words, run the provided Node.js script once:
+
+1.  **Ensure `.env` is configured:** Make sure your `.env` file in the project root is correctly set up with your Firebase configuration.
+2.  **Run the upload script:**
+    ```bash
+    node scripts/uploadWords.js
+    ```
+3.  **Verify:** After the script completes, check your Firebase console under **Firestore Database** to confirm that a new collection named `words` has been created and populated with your vocabulary words.
+
 ## Firestore Data Structure
 
 The application stores user data in a Firestore collection named `users`. Each document in this collection uses the generated 6-character `userID` as its Document ID.
@@ -84,7 +95,6 @@ A typical user document will have the following structure, which is incrementall
     "isNativeSpeaker": false,
     "timestamp": 1678886400
   },
-  // Assigned based on user registration order, odd is non-gamified, even is gamified
   "isGamified": false, 
   "preTest": {
     "testType": "Pre-Test",
@@ -111,6 +121,7 @@ A typical user document will have the following structure, which is incrementall
   }
 }
 ```
+`isGamified`: if odd user, then `false`, if even then `true`.
 
 ## Development Notes
 

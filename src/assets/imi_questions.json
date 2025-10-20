@@ -1,0 +1,48 @@
+{
+  "motivationalExperience": [
+    {
+      "section": "A: Interest & Enjoyment",
+      "questions": [
+        "I enjoyed completing this activity.",
+        "I thought this activity was fun to do.",
+        "I felt curious to see what words came next.",
+        "This activity was very interesting."
+      ]
+    },
+    {
+      "section": "B: Perceived Competence",
+      "questions": [
+        "I felt confident in my ability to complete the task.",
+        "I think I am pretty good at this activity.",
+        "I felt very skilled at this activity."
+      ]
+    },
+    {
+      "section": "C: Perceived Choice",
+      "questions": [
+        "I felt in control of how I learned during this activity.",
+        "I believe I had some choice about doing this activity.",
+        "I did this activity because I wanted to."
+      ]
+    },
+    {
+      "section": "D: Effort",
+      "questions": [
+        "I put a lot of effort into this activity.",
+        "I tried very hard to do well at this activity."
+      ]
+    }
+  ],
+  "behavioralOutcome": [
+    {
+      "section": "E: Persistence",
+      "questions": [
+        "I wanted to keep going even when the task became difficult.",
+        "I stayed focused until I finished the activity.",
+        "I would have continued working if I had more time.",
+        "I didn't want to quit early.",
+        "I tried to complete every question before stopping."
+      ]
+    }
+  ]
+}

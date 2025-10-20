@@ -1,0 +1,175 @@
+:root {
+  --orange: #e87500;
+  --green: #053d2c;
+}
+
+body {
+  font-family: sans-serif;
+  font-size: 20px;
+  margin: 0;
+}
+
+main {
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+.center {
+  text-align: center;
+}
+
+.left {
+  text-align: left;
+}
+
+button {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: var(--orange);
+  color: white;
+  border: none;
+  padding: 10px 25px;
+  font-size: 1em;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+button:hover {
+  background-color: var(--green);
+  font-weight: bold;
+}
+
+nav {
+  background-color: var(--green);
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+nav a {
+  color: white;
+}
+
+/* Learning.jsx */
+.learning-main {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.learning-main p {
+  margin: 0.5rem;
+}
+
+/* Imi.jsx */
+.imi-box {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  margin-left: 5px;
+}
+
+/* PreTest.jsx, PostTest.jsx */
+.choice-box {
+  display: block;
+  padding: 12px;
+  margin-top: 5px;
+}
+
+.imi-box,
+.choice-box {
+  font-size: 1em;
+  cursor: pointer;
+  border-radius: 8px;
+  border: 1px solid black;
+}
+
+.imi-box input[type="radio"],
+.choice-box input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+}
+
+.imi-box:has(input:checked),
+.choice-box:has(input:checked) {
+  background-color: var(--green);
+  color: white;
+  font-weight: bold;
+}
+
+/* Result.jsx */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+th,
+td {
+  border: 1.5px solid var(--green);
+  padding: 8px;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+/* Continue.jsx */
+.code-box {
+  text-transform: uppercase;
+  font-weight: bold;
+  text-align: center;
+  font-size: 1em;
+  padding: 5px;
+  border-radius: 8px;
+  border: 1px solid var(--green);
+}
+
+/* Thankyou.jsx */
+.thankyou-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.ty {
+  flex-grow: 1;
+  font-size: 1.5em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.ty p {
+  margin: 0.5rem;
+}
+
+/* Responsive Design */
+@media (min-width: 768px) {
+  main {
+    padding-left: 100px;
+    padding-right: 100px;
+  }
+}
+
+@media (min-width: 1024px) {
+  main {
+    padding-left: 200px;
+    padding-right: 200px;
+  }
+}
+
+@media (min-width: 1366px) {
+  main {
+    padding-left: 300px;
+    padding-right: 300px;
+  }
+}
