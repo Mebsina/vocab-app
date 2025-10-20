@@ -44,7 +44,7 @@ npm install
 
 ### 3. Environment Configuration
 
-This application connects to a Firebase Firestore backend. Your team lead will provide you with the necessary Firebase configuration values.
+This application connects to a Firebase Firestore backend. Your team will provide you with the necessary Firebase configuration values.
 
 1.  **Update `.gitignore`:** Ensure your `.gitignore` file (in the project root) contains the line `.env`.
 2.  **Create `.env` from `.env.example`:** In your project root (`vocab`), make a copy of the `.env.example` file and rename it to `.env`.
@@ -84,7 +84,8 @@ A typical user document will have the following structure, which is incrementall
     "isNativeSpeaker": false,
     "timestamp": 1678886400
   },
-  "isGamified": false, // Assigned based on user registration order, odd is non-gamified, even is gamified
+  // Assigned based on user registration order, odd is non-gamified, even is gamified
+  "isGamified": false, 
   "preTest": {
     "testType": "Pre-Test",
     "answers": { "Word1": "DefinitionA", "Word2": "DefinitionB" },
