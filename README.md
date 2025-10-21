@@ -81,6 +81,39 @@ To populate your Firestore database with the vocabulary words, run the provided 
     ```
 3.  **Verify:** After the script completes, check your Firebase console under **Firestore Database** to confirm that a new collection named `words` has been created and populated with your vocabulary words.
 
+### 6. Deploy to Firebase Hosting
+
+To deploy your application to Firebase Hosting:
+
+1.  **Install Firebase CLI:** If you haven't already, install the Firebase CLI globally:
+    ```bash
+    npm install -g firebase-tools
+    ```
+2.  **Log in to Firebase:**
+    ```bash
+    firebase login
+    ```
+3.  **Initialize Firebase in your project:** Run this command and follow the prompts:
+    *   Select **Hosting** feature.
+    *   Choose **Use an existing project**.
+    *   Select your Firebase project.
+    *   Public directory: **`dist`**
+    *   Configure as a single-page app: **y**
+    *   Set up GitHub Action deploys: **N**
+    *   Overwrite `dist/index.html`: **N**
+    ```bash
+    firebase init
+    ```
+4.  **Build your React application:**
+    ```bash
+    npm run build
+    ```
+5.  **Deploy to Firebase Hosting:**
+    ```bash
+    firebase deploy
+    ```
+    Your live site URL will be provided in the terminal output.
+
 ## Firestore Data Structure
 
 The application stores user data in a Firestore collection named `users`. Each document in this collection uses the generated 6-character `userID` as its Document ID.
