@@ -10,6 +10,7 @@ import Imi from "./components/Imi";
 import Thankyou from "./components/Thankyou";
 import Continue from "./components/Continue";
 import Result from "./components/result/Result";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   const [userData, setUserData] = useState(null);
@@ -39,29 +40,39 @@ function App() {
           <Route
             path="/learning"
             element={
-              <Learning
-                userData={userData}
-                setUserData={setUserData}
-                firestoreDocId={firestoreDocId}
-              />
+              <ProtectedRoute firestoreDocId={firestoreDocId}>
+                <Learning
+                  userData={userData}
+                  setUserData={setUserData}
+                  firestoreDocId={firestoreDocId}
+                />
+              </ProtectedRoute>
             }
           />
 
           <Route
             path="/posttest"
             element={
-              <PostTest
-                userData={userData}
-                setUserData={setUserData}
-                firestoreDocId={firestoreDocId}
-              />
+              <ProtectedRoute firestoreDocId={firestoreDocId}>
+                <PostTest
+                  userData={userData}
+                  setUserData={setUserData}
+                  firestoreDocId={firestoreDocId}
+                />
+              </ProtectedRoute>
             }
           />
 
           <Route
             path="/imi"
             element={
-              <Imi userData={userData} setUserData={setUserData} firestoreDocId={firestoreDocId} />
+              <ProtectedRoute firestoreDocId={firestoreDocId}>
+                <Imi
+                  userData={userData}
+                  setUserData={setUserData}
+                  firestoreDocId={firestoreDocId}
+                />
+              </ProtectedRoute>
             }
           />
 
