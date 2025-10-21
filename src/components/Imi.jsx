@@ -56,9 +56,8 @@ function Imi({ userData, setUserData, firestoreDocId }) {
       <h1>The Intrinsic Motivation Inventory</h1>
       <p>Please rate how much you agree with each statement</p>
       <p>
-        1 = Strongly Disagree, 2 = Disagree,
-        <span style={{ whiteSpace: "nowrap" }}> 3 = Neutral, 4 = Agree,</span>
-        <span style={{ whiteSpace: "nowrap" }}> 5 = Strongly Agree</span>
+        1&nbsp;=&nbsp;Strongly&nbsp;Disagree, 2&nbsp;=&nbsp;Disagree, 3&nbsp;=&nbsp;Neutral,
+        4&nbsp;=&nbsp;Agree, 5&nbsp;=&nbsp;Strongly&nbsp;Agree
       </p>
 
       <form onSubmit={handleImi}>

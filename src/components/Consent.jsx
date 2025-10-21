@@ -39,9 +39,9 @@ function Consent({ onConsentSubmit }) {
         </div>
         <h1 className="center">Informed Consent to Participate</h1>
         <h2>
-          Study Title: Gamification's Impact on Vocabulary Learning:{" "}
-          <span style={{ whiteSpace: "nowrap" }}>A Comparative</span> Study of Native and Non-Native
-          English Speakers
+          Study Title: <i>Gamification's Impact on Vocabulary Learning:
+          <span style={{ whiteSpace: "nowrap" }}> A Comparative</span> Study of Native and Non-Native
+          English Speakers</i>
         </h2>
 
         <h3>1. Introduction and Purpose</h3>
