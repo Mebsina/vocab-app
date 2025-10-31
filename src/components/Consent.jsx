@@ -31,11 +31,11 @@ function Consent({ onConsentSubmit }) {
       <Navbar linkSet="continuePage" />
       <main>
         <div className="center">
-          <img
+          {/* <img
             src={utDallasLogo}
             alt="UT Dallas Logo"
             style={{ width: "100%", maxWidth: "500px" }}
-          />
+          /> */}
         </div>
         <h1 className="center">Informed Consent to Participate</h1>
         <h2>
