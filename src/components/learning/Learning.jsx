@@ -93,9 +93,10 @@ function Learning({ userData, setUserData, firestoreDocId }) {
 
         {isGamified ? (
           <div>
-            <div className="timer-wrapper">
+            {/* No longer tracking the whole timer */}
+            {/* <div className="timer-wrapper">
               {preTestTimestamp && <Timer startTime={preTestTimestamp} onTimeUp={handleTimeUp} />}
-            </div>
+            </div> */}
             <div>
               <VocabSprint />
             </div>
