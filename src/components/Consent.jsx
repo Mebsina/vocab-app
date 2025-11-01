@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 import { useState } from "react";
-import utDallasLogo from "../assets/UT_Dallas_Wordmark_-_2_Line.svg";
+// import utDallasLogo from "../assets/UT_Dallas_Wordmark_-_2_Line.svg";
 
 function Consent({ onConsentSubmit }) {
   const navigate = useNavigate();
