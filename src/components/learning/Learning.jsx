@@ -4,11 +4,60 @@ import FlashCard from "./FlashCard";
 import VocabSprint from "./VocabSprint";
 import { db } from "../../firebase";
 import { doc, updateDoc } from "firebase/firestore";
+import Timer from "./Timer";
+import "./Timer.css";
 
 function Learning({ userData, setUserData, firestoreDocId }) {
   const navigate = useNavigate();
   const userID = userData ? userData.userID : "";
   const isGamified = userData ? userData.isGamified : false;
+  const preTestTimestamp = userData?.preTest?.timestamp;
+
+  const navigateToPostTest = async () => {
+    const learningData = {
+      learning: {
+        timestamp: Math.floor(Date.now() / 1000),
+      },
+    };
+
+    const updatedUserData = {
+      ...userData,
+      ...learningData,
+    };
+
+    setUserData(updatedUserData);
+
+    // Update the document in Firebase
+    if (firestoreDocId) {
+      try {
+        const docRef = doc(db, "users", firestoreDocId);
+        await updateDoc(docRef, {
+          learning: learningData.learning,
+        });
+        console.log("Document successfully updated with learning data.");
+      } catch (error) {
+        console.error("Error updating document: ", error);
+      }
+    } else {
+      console.error("Error: No document ID found to update.");
+    }
+
+    navigate("/posttest");
+  };
+
+  const handleTimeUp = () => {
+    Swal.fire({
+      title: "Time's Up!",
+      text: "You will be automatically directed to the post-test screen.",
+      timer: 10000,
+      timerProgressBar: true,
+      showConfirmButton: true,
+      confirmButtonColor: "#053d2c",
+      confirmButtonText: "Take the Post-Test",
+    }).then(() => {
+      navigateToPostTest();
+    });
+  };
 
   const handleComplete = async (e) => {
     e.preventDefault();
@@ -24,35 +73,7 @@ function Learning({ userData, setUserData, firestoreDocId }) {
     });
 
     if (swalResult.isConfirmed) {
-      const learningData = {
-        learning: {
-          timestamp: Math.floor(Date.now() / 1000),
-        },
-      };
-
-      const updatedUserData = {
-        ...userData,
-        ...learningData,
-      };
-
-      setUserData(updatedUserData);
-
-      // Update the document in Firebase
-      if (firestoreDocId) {
-        try {
-          const docRef = doc(db, "users", firestoreDocId);
-          await updateDoc(docRef, {
-            learning: learningData.learning,
-          });
-          console.log("Document successfully updated with learning data.");
-        } catch (error) {
-          console.error("Error updating document: ", error);
-        }
-      } else {
-        console.error("Error: No document ID found to update.");
-      }
-
-      navigate("/posttest");
+      navigateToPostTest();
     }
   };
 
@@ -71,7 +92,14 @@ function Learning({ userData, setUserData, firestoreDocId }) {
         <br />
 
         {isGamified ? (
-          <VocabSprint />
+          <div>
+            <div className="timer-wrapper">
+              {preTestTimestamp && <Timer startTime={preTestTimestamp} onTimeUp={handleTimeUp} />}
+            </div>
+            <div>
+              <VocabSprint />
+            </div>
+          </div>
         ) : (
           <FlashCard />
         )}

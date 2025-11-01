@@ -14,6 +14,9 @@ const createGroupData = () => {
     count: 0,
     preTestScore: 0,
     postTestScore: 0,
+    preTestScores: [],
+    postTestScores: [],
+    cohensD: 0,
     preTestTime: 0,
     timeOnTask: 0,
     postTestTime: 0,
@@ -60,6 +63,8 @@ function Result() {
           group.count++;
           group.preTestScore += user.preTest.percentage;
           group.postTestScore += user.postTest.percentage;
+          group.preTestScores.push(user.preTest.percentage);
+          group.postTestScores.push(user.postTest.percentage);
           group.preTestTime += user.preTest.timestamp - user.consent.timestamp;
           group.timeOnTask += user.learning.timestamp - user.preTest.timestamp;
           group.postTestTime += user.postTest.timestamp - user.learning.timestamp;
@@ -72,12 +77,43 @@ function Result() {
           }
         });
 
-        // Calculate averages
+        // console.log("Gamified Native Pre-Test Scores:", aggregatedData.gamified_native.preTestScores);
+        // console.log("Gamified Native Post-Test Scores:", aggregatedData.gamified_native.postTestScores);
+        // console.log("Gamified Non-Native Pre-Test Scores:", aggregatedData.gamified_non_native.preTestScores);
+        // console.log("Gamified Non-Native Post-Test Scores:", aggregatedData.gamified_non_native.postTestScores);
+        // console.log("Non-Gamified Native Pre-Test Scores:", aggregatedData.non_gamified_native.preTestScores);
+        // console.log("Non-Gamified Native Post-Test Scores:", aggregatedData.non_gamified_native.postTestScores);
+        // console.log("Non-Gamified Non-Native Pre-Test Scores:", aggregatedData.non_gamified_non_native.preTestScores);
+        // console.log("Non-Gamified Non-Native Post-Test Scores:", aggregatedData.non_gamified_non_native.postTestScores);
+
+        const calculateStandardDeviation = (array, mean) => {
+          const n = array.length;
+          if (n < 2) return 0;
+          return Math.sqrt(array.map(x => Math.pow(x - mean, 2)).reduce((a, b) => a + b) / (n - 1));
+        };
+
+        const calculateCohensD = (mean1, mean2, stdDev1, stdDev2, n1, n2) => {
+          if (n1 < 2 || n2 < 2) return 0;
+          const pooledStdDev = Math.sqrt(((n1 - 1) * Math.pow(stdDev1, 2) + (n2 - 1) * Math.pow(stdDev2, 2)) / (n1 + n2 - 2));
+          if (pooledStdDev === 0) return 0;
+          return (mean1 - mean2) / pooledStdDev;
+        };
+
+        // Calculate averages and Cohen's d
         for (const groupKey in aggregatedData) {
           const group = aggregatedData[groupKey];
           if (group.count > 0) {
-            group.preTestScore /= group.count;
-            group.postTestScore /= group.count;
+            const meanPreTest = group.preTestScore / group.count;
+            const meanPostTest = group.postTestScore / group.count;
+
+            const stdDevPreTest = calculateStandardDeviation(group.preTestScores, meanPreTest);
+            const stdDevPostTest = calculateStandardDeviation(group.postTestScores, meanPostTest);
+
+            group.preTestScore = meanPreTest;
+            group.postTestScore = meanPostTest;
+
+            group.cohensD = calculateCohensD(meanPostTest, meanPreTest, stdDevPostTest, stdDevPreTest, group.count, group.count);
+
             group.preTestTime /= group.count;
             group.timeOnTask /= group.count;
             group.postTestTime /= group.count;
@@ -173,6 +209,13 @@ function Result() {
               <td>{results.gamified_non_native.postTestTime.toFixed(0)} s</td>
               <td>{results.non_gamified_native.postTestTime.toFixed(0)} s</td>
               <td>{results.non_gamified_non_native.postTestTime.toFixed(0)} s</td>
+            </tr>
+            <tr>
+              <td className="left">Cohen's <i>d</i></td>
+              <td>{results.gamified_native.cohensD.toFixed(2)}</td>
+              <td>{results.gamified_non_native.cohensD.toFixed(2)}</td>
+              <td>{results.non_gamified_native.cohensD.toFixed(2)}</td>
+              <td>{results.non_gamified_non_native.cohensD.toFixed(2)}</td>
             </tr>
             <tr>
               <td className="left">IMI Time</td>
