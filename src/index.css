@@ -54,11 +54,14 @@ nav a {
 
 /* Learning.jsx */
 .learning-main {
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding-top: 3vh;
+  padding-bottom: 3vh;
+  box-sizing: border-box;
 }
 
 .learning-main p {

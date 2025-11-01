@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import FlashCard from "./FlashCard";
+import VocabSprint from "./VocabSprint";
 import { db } from "../../firebase";
 import { doc, updateDoc } from "firebase/firestore";
 import Timer from "./Timer";
@@ -96,7 +97,7 @@ function Learning({ userData, setUserData, firestoreDocId }) {
               {preTestTimestamp && <Timer startTime={preTestTimestamp} onTimeUp={handleTimeUp} />}
             </div>
             <div>
-              <p className="center">Gamified version is under construction.</p>
+              <VocabSprint />
             </div>
           </div>
         ) : (
