@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import FlashCard from "./FlashCard";
+import VocabSprint from "./VocabSprint";
 import { db } from "../../firebase";
 import { doc, updateDoc } from "firebase/firestore";
 
@@ -70,9 +71,7 @@ function Learning({ userData, setUserData, firestoreDocId }) {
         <br />
 
         {isGamified ? (
-          <div>
-            <p className="center">Gamified version is under construction.</p>
-          </div>
+          <VocabSprint />
         ) : (
           <FlashCard />
         )}
