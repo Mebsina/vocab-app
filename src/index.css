@@ -53,6 +53,46 @@ nav a {
 }
 
 /* Learning.jsx */
+.learning-header-fixed {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: var(--green);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.unique-code-banner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  background: linear-gradient(135deg, var(--green) 0%, #0a5d3f 100%);
+  color: white;
+  flex-wrap: wrap;
+}
+
+.code-label {
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.code-value {
+  font-size: 1.3rem;
+  font-weight: bold;
+  letter-spacing: 2px;
+  padding: 5px 15px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.code-hint {
+  font-size: 0.85rem;
+  opacity: 0.9;
+  font-style: italic;
+}
+
 .learning-main {
   min-height: 100vh;
   display: flex;
@@ -161,6 +201,9 @@ th {
     padding-right: 50px;
   }
   .ty {
+    font-size: 1.5rem;
+  }
+  .code-value {
     font-size: 1.5rem;
   }
 }

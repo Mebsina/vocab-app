@@ -19,7 +19,7 @@ function Test({
   const [answers, setAnswers] = useState({});
   const [wordsFromFirestore, setWordsFromFirestore] = useState([]); // New state for words
 
-  // Fetch words from Firestore on component mount
+  // fetch words from Firestore on component mount
   useEffect(() => {
     const fetchWords = async () => {
       try {
@@ -34,22 +34,22 @@ function Test({
     fetchWords();
   }, []);
 
-  // Generating questions for the test (now depends on wordsFromFirestore)
+  // generating questions for the test (now depends on wordsFromFirestore)
   useEffect(() => {
     if (wordsFromFirestore.length > 0) {
       const generateQuestions = () => {
         const allDefinitions = wordsFromFirestore.map((word) => word.definition);
 
-        // Create a question for each word.
+        // create a question for each word.
         const generatedQuestions = wordsFromFirestore.map((word) => {
           const correctAnswer = word.definition;
 
           const wrongAnswers = allDefinitions.filter((definition) => definition !== correctAnswer);
 
-          // Shuffle the wrong answers and take the first 3.
+          // shuffle the wrong answers and take the first 3.
           const shuffledWrongAnswers = wrongAnswers.sort(() => 0.5 - Math.random());
 
-          // Create an array of choices with the correct answer + 3 wrong answers.
+          // create an array of choices with the correct answer + 3 wrong answers.
           const choices = [correctAnswer, ...shuffledWrongAnswers.slice(0, 3)].sort(
             () => 0.5 - Math.random()
           );
@@ -72,7 +72,7 @@ function Test({
     }));
   };
 
-  // Generate a unique 6-letter user code
+  // generate a unique 6-letter user code
   const generateCode = () => {
     const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     let code = "";
@@ -111,11 +111,13 @@ function Test({
       try {
         const userCollection = collection(db, "users");
 
-        // Get user count to determine gamification status
-        const querySnapshot = await getDocs(userCollection);
-        const userCount = querySnapshot.size;
+        // Get user count to determine gamification status and game type
+        // const querySnapshot = await getDocs(userCollection);
+        // const userCount = querySnapshot.size;
         // Odd user is gamified
-        const isGamified = userCount % 2 !== 0; 
+        // TESTING: Force gamified mode with mapping game - CHANGE BACK BEFORE REAL STUDY!
+        const isGamified = true; // userCount % 2 !== 0;
+        const gameType = "mapping"; // "vocabsprint" or "mapping" - determines which game to show 
 
         // Ensure userID is unique
         let uniqueUserID;
@@ -134,6 +136,7 @@ function Test({
           userID: uniqueUserID,
           ...userData,
           isGamified: isGamified,
+          gameType: gameType,
           preTest: testData,
           learning: null,
           postTest: null,

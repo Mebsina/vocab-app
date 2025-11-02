@@ -1,0 +1,282 @@
+/* Mapping.css - Styles for the interactive world map */
+
+.mapping-container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.mapping-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.mapping-header h2 {
+  color: var(--green);
+  margin-bottom: 10px;
+  font-size: 2rem;
+}
+
+.mapping-instructions {
+  color: #666;
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+}
+
+.progress-tracker {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 15px;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+}
+
+.progress-text {
+  display: block;
+  font-weight: bold;
+  color: var(--green);
+  margin-bottom: 10px;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 25px;
+  background-color: #e0e0e0;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--orange), var(--green));
+  transition: width 0.5s ease-in-out;
+  border-radius: 15px;
+}
+
+.celebration-banner {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 20px;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  animation: slideDown 0.5s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.map-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.map-container {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  border: 4px solid var(--green);
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  background-color: #000;
+}
+
+.world-map {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.region-button {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  padding: 15px 20px;
+  border: 3px solid white;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  min-width: 150px;
+  z-index: 10;
+}
+
+.region-button:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.6);
+  border-color: var(--orange);
+}
+
+.region-button.completed {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+  }
+  50% {
+    box-shadow: 0 4px 25px rgba(76, 175, 80, 0.8);
+  }
+}
+
+.region-button-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  color: white;
+}
+
+.region-icon {
+  font-size: 1.5rem;
+}
+
+.region-name {
+  font-weight: bold;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.region-theme {
+  font-size: 0.8rem;
+  opacity: 0.9;
+  text-align: center;
+}
+
+.completion-message {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+  padding: 30px;
+  border-radius: 15px;
+  text-align: center;
+  margin: 20px 0;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+}
+
+.completion-message h3 {
+  margin-top: 0;
+  font-size: 2rem;
+}
+
+.completion-message p {
+  font-size: 1.2rem;
+  margin: 10px 0;
+}
+
+.legend {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  border: 2px solid #ddd;
+  max-width: 400px;
+  margin: 20px auto;
+}
+
+.legend h4 {
+  margin-top: 0;
+  color: var(--green);
+  text-align: center;
+}
+
+.legend-items {
+  display: flex;
+  justify-content: space-around;
+  gap: 20px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1rem;
+}
+
+.legend-icon {
+  font-size: 1.5rem;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  border: 2px solid #ddd;
+}
+
+.legend-icon.incomplete {
+  background-color: #fff;
+}
+
+.legend-icon.complete {
+  background-color: #4CAF50;
+  color: white;
+  border-color: #4CAF50;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .mapping-header h2 {
+    font-size: 1.5rem;
+  }
+
+  .mapping-instructions {
+    font-size: 1rem;
+  }
+
+  .region-button {
+    min-width: 100px;
+    padding: 10px 15px;
+  }
+
+  .region-name {
+    font-size: 0.85rem;
+  }
+
+  .region-theme {
+    font-size: 0.7rem;
+  }
+
+  .region-icon {
+    font-size: 1.2rem;
+  }
+
+  .completion-message h3 {
+    font-size: 1.5rem;
+  }
+
+  .completion-message p {
+    font-size: 1rem;
+  }
+
+  .legend-items {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .region-button {
+    min-width: 80px;
+    padding: 8px 12px;
+  }
+
+  .region-name {
+    font-size: 0.75rem;
+  }
+
+  .region-theme {
+    display: none;
+  }
+}
