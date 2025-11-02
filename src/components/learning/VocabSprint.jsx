@@ -15,7 +15,7 @@ function shuffleArray(array) {
 // Time allowed per question in seconds
 const TIME_PER_QUESTION = 10;
 
-function VocabSprint() {
+function VocabSprint({ onComplete }) {
   const [gameState, setGameState] = useState("loading"); // loading, playing, finished
   const [questions, setQuestions] = useState([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -189,9 +189,15 @@ function VocabSprint() {
   if(gameState === "ended") {
       return (
           <div>
-              <h2>Game Over!</h2>
-              <p className="vocab-sprint-end-screen">Your final score: {score}</p>
-              <p>Please click the button below to take the Post-Test.</p>
+              <h1>Game Over!</h1>
+              <p className="vocab-sprint-end-screen">Your final score: {score}/2250</p>
+              <br />
+              <br />
+              <form onSubmit={onComplete}>
+                <button type="submit">
+                  I'm Ready for the Post-Test!
+                </button>
+              </form>
           </div>
       );
   }

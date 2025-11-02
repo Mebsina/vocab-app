@@ -177,7 +177,7 @@
 .vocab-sprint-end-screen {
     font-size: clamp(2rem, 8vw, 3rem);
     font-weight: 700;
-    color: var(--orange);
+    color: var(--green);
     margin: 1rem 0 2rem 0;
 }
 

@@ -109,7 +109,7 @@ function Learning({ userData, setUserData, firestoreDocId }) {
               <div>
                 {/* VocabSprint only game */}
                 <div>
-                  <VocabSprint />
+                  <VocabSprint onComplete={handleComplete} />
                 </div>
               </div>
             ) : (
@@ -154,7 +154,7 @@ function Learning({ userData, setUserData, firestoreDocId }) {
                         </button>
                       </div>
                     ) : (
-                      <VocabSprint />
+                      <VocabSprint onComplete={handleComplete} />
                     )}
                   </div>
                 )}
@@ -166,7 +166,7 @@ function Learning({ userData, setUserData, firestoreDocId }) {
         )}
 
         <br />
-        {!(isGamified && gameType === "mapping" && !isMappingComplete) && (
+        {!isGamified && (
           <form onSubmit={handleComplete}>
             <button 
               type="submit" 
