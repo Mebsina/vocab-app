@@ -3,76 +3,68 @@
 export const regionMetadata = {
   region1: {
     name: "Region 1",
-    theme: "Vocabulary Zone 1",
+    theme: "Arrangement & Relation",
     color: "#2d5016",
     position: { top: "35%", left: "15%" },
   },
   region2: {
     name: "Region 2",
-    theme: "Vocabulary Zone 2",
+    theme: "Feeling & Attitude",
     color: "#1a4d7a",
     position: { top: "25%", left: "50%" },
   },
   region3: {
     name: "Region 3",
-    theme: "Vocabulary Zone 3",
+    theme: "Quality & State",
     color: "#0a4d68",
     position: { top: "60%", left: "70%" },
   },
   region4: {
     name: "Region 4",
-    theme: "Vocabulary Zone 4",
+    theme: "Sound & Voice",
     color: "#6b2d5c",
     position: { top: "45%", left: "82%" },
   },
   region5: {
     name: "Region 5",
-    theme: "Vocabulary Zone 5",
+    theme: "Time & Change",
     color: "#1a1a2e",
     position: { top: "15%", left: "75%" },
   }
 };
 
-// Function to distribute Firebase words evenly across regions
+// Function to distribute Firebase words based on theme
 export const distributeWordsToRegions = (firebaseWords) => {
-  const regionKeys = Object.keys(regionMetadata);
-  const numRegions = regionKeys.length;
-  
-  // Create a copy of region metadata with empty words arrays
   const vocabularyData = {};
-  regionKeys.forEach(key => {
-    vocabularyData[key] = {
-      ...regionMetadata[key],
+  const themeToRegionMap = {};
+
+  // Initialize vocabularyData and create a map from theme to region
+  Object.keys(regionMetadata).forEach(regionKey => {
+    const region = regionMetadata[regionKey];
+    vocabularyData[regionKey] = {
+      ...region,
       words: []
     };
+    themeToRegionMap[region.theme] = regionKey;
   });
-  
-  // Distribute words evenly across regions
-  firebaseWords.forEach((wordData, index) => {
-    const regionIndex = index % numRegions;
-    const regionKey = regionKeys[regionIndex];
-    
-    // Transform Firebase word format to game format
-    // Firebase has: { word: "...", definition: "...", alternatives?: [...] }
-    // Game needs: { word: "...", correctDefinition: "...", definitions: [...] }
-    
-    // Get alternative definitions from Firebase or create placeholders
-    const alt1 = wordData.alternatives?.[0] || `Alternative meaning of ${wordData.word}`;
-    const alt2 = wordData.alternatives?.[1] || `Another definition for ${wordData.word}`;
-    
-    const gameWord = {
-      word: wordData.word,
-      correctDefinition: wordData.definition,
-      definitions: shuffleArray([
-        wordData.definition,  // Correct definition
-        alt1,                 // Alternative 1
-        alt2                  // Alternative 2
-      ])
-    };
-    
-    vocabularyData[regionKey].words.push(gameWord);
+
+  // Distribute words to regions based on their theme
+  firebaseWords.forEach(wordData => {
+    const regionKey = themeToRegionMap[wordData.theme];
+    if (regionKey) {
+      const gameWord = {
+        word: wordData.word,
+        theme: wordData.theme,
+        correctDefinition: wordData.definition,
+        definitions: shuffleArray([
+          wordData.definition,
+          ...(wordData.wrongDef || [`Wrong definition of ${wordData.word}`, `Wrong definition for ${wordData.word}`])
+        ])
+      };
+      vocabularyData[regionKey].words.push(gameWord);
+    }
   });
-  
+
   return vocabularyData;
 };
 

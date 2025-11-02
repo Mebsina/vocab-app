@@ -1,22 +1,137 @@
 [
   {
-    "word": "Serendipity",
-    "definition": "The occurrence and development of events by chance in a happy or beneficial way."
+    "word": "Alignment",
+    "definition": "An adjustment to a line; arrangement in a straight line or in correct relative positions.",
+    "theme": "Arrangement & Relation",
+    "wrongDef": [
+      "A feeling of utter weariness and discontent resulting from satiety or lack of interest; boredom.",
+      "Extremely delicate and light; heavenly or celestial; lacking material substance."
+    ]
   },
   {
-    "word": "Ennui",
-    "definition": "A feeling of listlessness and dissatisfaction arising from a lack of occupation or excitement."
-  },
-  {
-    "word": "Aberration",
-    "definition": "A state or condition markedly different from the norm."
+    "word": "Congruence",
+    "definition": "Agreement or harmony; the quality of coinciding exactly when superimposed.",
+    "theme": "Arrangement & Relation",
+    "wrongDef": [
+      "The occurrence and development of events by chance in a happy or beneficial way; an unplanned fortunate discovery.",
+      "Marked by forceful and fluent expression; having or showing clear and forceful expression."
+    ]
   },
   {
     "word": "Juxtaposition",
-    "definition": "Placing two things close together for contrasting effect."
+    "definition": "The fact of two things being seen or placed close together with contrasting effect.",
+    "theme": "Arrangement & Relation",
+    "wrongDef": [
+      "Able to recover quickly from difficult conditions; the ability to 'bounce back' from adversity.",
+      "Having a smooth rich flow; sweet or musical; pleasant to hear."
+    ]
+  },
+  {
+    "word": "Ennui",
+    "definition": "A feeling of utter weariness and discontent resulting from satiety or lack of interest; boredom.",
+    "theme": "Feeling & Attitude",
+    "wrongDef": [
+      "An adjustment to a line; arrangement in a straight line or in correct relative positions.",
+      "Strikingly bright or intense, as color; presenting the appearance, freshness, or spirit of life; realistic."
+    ]
   },
   {
     "word": "Magnanimity",
-    "definition": "The quality of being very generous or forgiving."
+    "definition": "The quality of being generously forgiving; loftiness of spirit enabling one to bear trouble calmly and disdain meanness.",
+    "theme": "Feeling & Attitude",
+    "wrongDef": [
+      "Agreement or harmony; the quality of coinciding exactly when superimposed.",
+      "Giving out a deep, resonant sound; rich and full in sound, as language or verse."
+    ]
+  },
+  {
+    "word": "Serendipity",
+    "definition": "The occurrence and development of events by chance in a happy or beneficial way; an unplanned fortunate discovery.",
+    "theme": "Feeling & Attitude",
+    "wrongDef": [
+      "The fact of two things being seen or placed close together with contrasting effect.",
+      "A departure or deviation from what is normal, usual, or expected; an instance of deviating from the ordinary."
+    ]
+  },
+  {
+    "word": "Ethereal",
+    "definition": "Extremely delicate and light; heavenly or celestial; lacking material substance.",
+    "theme": "Quality & State",
+    "wrongDef": [
+      "A feeling of utter weariness and discontent resulting from satiety or lack of interest; boredom.",
+      "To travel or wander about from place to place."
+    ]
+  },
+  {
+    "word": "Resilient",
+    "definition": "Able to recover quickly from difficult conditions; the ability to 'bounce back' from adversity.",
+    "theme": "Quality & State",
+    "wrongDef": [
+      "The quality of being generously forgiving; loftiness of spirit enabling one to bear trouble calmly and disdain meanness.",
+      "Lasting a very short time; short-lived; transitory."
+    ]
+  },
+  {
+    "word": "Vivid",
+    "definition": "Strikingly bright or intense, as color; presenting the appearance, freshness, or spirit of life; realistic.",
+    "theme": "Quality & State",
+    "wrongDef": [
+      "The occurrence and development of events by chance in a happy or beneficial way; an unplanned fortunate discovery.",
+      "An adjustment to a line; arrangement in a straight line or in correct relative positions."
+    ]
+  },
+  {
+    "word": "Eloquent",
+    "definition": "Marked by forceful and fluent expression; having or showing clear and forceful expression.",
+    "theme": "Sound & Voice",
+    "wrongDef": [
+      "Extremely delicate and light; heavenly or celestial; lacking material substance.",
+      "Agreement or harmony; the quality of coinciding exactly when superimposed."
+    ]
+  },
+  {
+    "word": "Mellifluous",
+    "definition": "Having a smooth rich flow; sweet or musical; pleasant to hear.",
+    "theme": "Sound & Voice",
+    "wrongDef": [
+      "Able to recover quickly from difficult conditions; the ability to 'bounce back' from adversity.",
+      "The fact of two things being seen or placed close together with contrasting effect."
+    ]
+  },
+  {
+    "word": "Sonorous",
+    "definition": "Giving out a deep, resonant sound; rich and full in sound, as language or verse.",
+    "theme": "Sound & Voice",
+    "wrongDef": [
+      "Strikingly bright or intense, as color; presenting the appearance, freshness, or spirit of life; realistic.",
+      "A feeling of utter weariness and discontent resulting from satiety or lack of interest; boredom."
+    ]
+  },
+  {
+    "word": "Aberration",
+    "definition": "A departure or deviation from what is normal, usual, or expected; an instance of deviating from the ordinary.",
+    "theme": "Time & Change",
+    "wrongDef": [
+      "Marked by forceful and fluent expression; having or showing clear and forceful expression.",
+      "The quality of being generously forgiving; loftiness of spirit enabling one to bear trouble calmly and disdain meanness."
+    ]
+  },
+  {
+    "word": "Ephemeral",
+    "definition": "Lasting a very short time; short-lived; transitory.",
+    "theme": "Time & Change",
+    "wrongDef": [
+      "Having a smooth rich flow; sweet or musical; pleasant to hear.",
+      "The occurrence and development of events by chance in a happy or beneficial way; an unplanned fortunate discovery."
+    ]
+  },
+  {
+    "word": "Peregrinate",
+    "definition": "To travel or wander about from place to place.",
+    "theme": "Time & Change",
+    "wrongDef": [
+      "Giving out a deep, resonant sound; rich and full in sound, as language or verse.",
+      "Extremely delicate and light; heavenly or celestial; lacking material substance."
+    ]
   }
 ]
