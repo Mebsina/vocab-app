@@ -85,7 +85,7 @@ function Learning({ userData, setUserData, firestoreDocId }) {
 
   return (
     <>
-      {isGamified && gameType === "mapping" && (
+      {isGamified && (
         <div className="learning-header-fixed">
           <div className="unique-code-banner">
             <span className="code-label">Your Unique Code:</span>
