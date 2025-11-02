@@ -123,7 +123,11 @@ function Learning({ userData, setUserData, firestoreDocId }) {
               <div>
                 {!isMappingComplete ? (
                   /* Step 1: Teaching phase - Mapping game */
-                  <Mapping onAllRegionsComplete={() => setIsMappingComplete(true)} />
+                  <Mapping
+                  onAllRegionsComplete={() => setIsMappingComplete(true)}
+                  firestoreDocId={firestoreDocId}
+                  userData={userData}
+                />
                 ) : (
                   /* Step 2: Show proceed screen, then practice phase - VocabSprint */
                   <div>

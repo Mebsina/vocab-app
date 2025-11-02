@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
-import { distributeWordsToRegions } from "../../data/vocabularyData";
+import { distributeWordsToRegions, regionMetadata } from "../../data/vocabularyData";
 import RegionGame from "./RegionGame";
 import { db } from "../../firebase";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, doc, getDoc, updateDoc } from "firebase/firestore";
 import "./Mapping.css";
 
-function Mapping({ onAllRegionsComplete }) {
+function Mapping({ onAllRegionsComplete, firestoreDocId }) {
   const [selectedRegion, setSelectedRegion] = useState(null);
   const [completedRegions, setCompletedRegions] = useState([]);
   const [showCelebration, setShowCelebration] = useState(false);
@@ -16,6 +16,7 @@ function Mapping({ onAllRegionsComplete }) {
   useEffect(() => {
     const fetchAndDistributeWords = async () => {
       try {
+        // Fetch words
         const wordsCollectionRef = collection(db, "words");
         const querySnapshot = await getDocs(wordsCollectionRef);
         const fetchedWords = querySnapshot.docs.map(doc => doc.data());
@@ -23,6 +24,29 @@ function Mapping({ onAllRegionsComplete }) {
         // Distribute words evenly across regions
         const distributedData = distributeWordsToRegions(fetchedWords);
         setVocabularyData(distributedData);
+
+        // Fetch user progress
+        if (firestoreDocId) {
+          const userDocRef = doc(db, "users", firestoreDocId);
+          const userDocSnap = await getDoc(userDocRef);
+          if (userDocSnap.exists()) {
+            const userData = userDocSnap.data();
+            let currentLearningState = userData.learning;
+
+            // Initialize learning state if not present or not an object
+            if (!currentLearningState || typeof currentLearningState !== 'object') {
+              currentLearningState = Object.keys(regionMetadata).reduce((acc, regionKey) => {
+                acc[regionKey] = false;
+                return acc;
+              }, {});
+              // Update Firestore with the initialized learning state
+              await updateDoc(userDocRef, { learning: currentLearningState });
+            }
+
+            const completed = Object.keys(currentLearningState).filter(key => currentLearningState[key] === true);
+            setCompletedRegions(completed);
+          }
+        }
       } catch (error) {
         console.error("Error fetching words from Firestore: ", error);
       } finally {
@@ -30,17 +54,29 @@ function Mapping({ onAllRegionsComplete }) {
       }
     };
     fetchAndDistributeWords();
-  }, []);
+  }, [firestoreDocId]);
 
   const handleRegionClick = (regionKey) => {
     setSelectedRegion(regionKey);
   };
 
-  const handleRegionComplete = (regionKey) => {
+  const handleRegionComplete = async (regionKey) => {
     if (!completedRegions.includes(regionKey)) {
       const newCompletedRegions = [...completedRegions, regionKey];
       setCompletedRegions(newCompletedRegions);
-      
+
+      // Update Firestore
+      if (firestoreDocId) {
+        try {
+          const userDocRef = doc(db, "users", firestoreDocId);
+          await updateDoc(userDocRef, {
+            [`learning.${regionKey}`]: true
+          });
+        } catch (error) {
+          console.error("Error updating region completion status: ", error);
+        }
+      }
+
       // Check if all regions are completed
       if (newCompletedRegions.length === Object.keys(vocabularyData).length) {
         setShowCelebration(true);
