@@ -56,6 +56,15 @@ function Mapping({ onAllRegionsComplete, firestoreDocId }) {
     fetchAndDistributeWords();
   }, [firestoreDocId]);
 
+  // Check for completion on load
+  useEffect(() => {
+    if (!loading && vocabularyData && completedRegions.length === Object.keys(vocabularyData).length) {
+      if (onAllRegionsComplete) {
+        onAllRegionsComplete();
+      }
+    }
+  }, [completedRegions, vocabularyData, onAllRegionsComplete, loading]);
+
   const handleRegionClick = (regionKey) => {
     setSelectedRegion(regionKey);
   };

@@ -96,9 +96,9 @@ function Learning({ userData, setUserData, firestoreDocId }) {
       )}
       
       <main className="learning-main">
-        <h1>Learning Session</h1>
         {!isGamified && (
           <div>
+            <h1 className="center">Learning Session</h1>
             <p className="center">
               In case you disconnect, you can use the code below to continue your learning course.
             </p>
@@ -141,7 +141,8 @@ function Learning({ userData, setUserData, firestoreDocId }) {
                         borderRadius: '10px'
                       }}>
                         <h3 style={{ margin: '0 0 10px 0' }}>🎉 Teaching Phase Complete!</h3>
-                        <p style={{ margin: '0 0 14px 0' }}>Great job finishing all regions with 100% accuracy.</p>
+                        <p style={{ margin: '0 0 14px 0' }}>Great job finishing all regions.</p>
+                        <p style={{ margin: '0 0 14px 0' }}>Next up is a fast-paced game to test your vocabulary knowledge.</p>
                         <button
                           type="button"
                           onClick={() => setShowPractice(true)}
@@ -171,24 +172,16 @@ function Learning({ userData, setUserData, firestoreDocId }) {
         )}
 
         <br />
-        <form onSubmit={handleComplete}>
-          <button 
-            type="submit" 
-            disabled={isGamified && gameType === "mapping" && !isMappingComplete}
-            style={{
-              opacity: (isGamified && gameType === "mapping" && !isMappingComplete) ? 0.5 : 1,
-              cursor: (isGamified && gameType === "mapping" && !isMappingComplete) ? 'not-allowed' : 'pointer'
-            }}
-          >
-            Ready for the Post-Test
-          </button>
-          {isGamified && gameType === "mapping" && !isMappingComplete && (
-            <p className="center" style={{ color: '#ff9800', fontWeight: 'bold', marginTop: '10px' }}>
-              ⚠️ Complete the teaching phase (all regions with 100% accuracy) to proceed
-            </p>
-          )}
-          <br />
-        </form>
+        {!(isGamified && gameType === "mapping" && !isMappingComplete) && (
+          <form onSubmit={handleComplete}>
+            <button 
+              type="submit" 
+            >
+              I'm Ready for the Post-Test!
+            </button>
+            <br />
+          </form>
+        )}
       </main>
     </>
   );
