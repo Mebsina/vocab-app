@@ -112,11 +112,12 @@ function Test({
         const userCollection = collection(db, "users");
 
         // Get user count to determine gamification status and game type
-        // const querySnapshot = await getDocs(userCollection);
-        // const userCount = querySnapshot.size;
+        const querySnapshot = await getDocs(userCollection);
+        const userCount = querySnapshot.size;
+        const isGamified = userCount % 2 !== 0; 
         // Odd user is gamified
         // TESTING: Force gamified mode with mapping game - CHANGE BACK BEFORE REAL STUDY!
-        const isGamified = true; // userCount % 2 !== 0;
+        // const isGamified = true; // userCount % 2 !== 0;
         const gameType = "mapping"; // "vocabsprint" or "mapping" - determines which game to show 
 
         // Ensure userID is unique
