@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { db } from '../../firebase';
 import { collection, getDocs } from 'firebase/firestore';
 import "./VocabSprint.css";
@@ -74,6 +74,45 @@ function VocabSprint() {
     fetchWords();
   }, []);
 
+    // 4. Display visual feedback
+    const displayFeedback = useCallback((isCorrect) => {
+        const feedbackClass = isCorrect ? "correct-feedback" : "incorrect-feedback";
+        if(gameContainerRef.current) {
+            gameContainerRef.current.classList.add(feedbackClass);
+            setTimeout(() => {
+                if(gameContainerRef.current) {
+                    gameContainerRef.current.classList.remove(feedbackClass);
+                }
+            }, 300);
+        }
+    }, []);
+
+    // Handle moving to next question or ending game when time is up
+    const moveToNextOrEndGame = useCallback(() => {
+        const isLastQuestion = currentQuestionIndex >= questions.length - 1;
+
+        if(isLastQuestion) {
+            setTimeout(() => {
+                setGameState("ended");
+            }, 750);
+        } else {
+            setCurrentQuestionIndex(prevIndex => prevIndex + 1);
+        }
+    }, [currentQuestionIndex, questions.length]);
+
+    // Handle when time is up for a question
+    const handleTimeUp = useCallback(() => {
+        if(gameState !== "playing") return;
+
+        // Time's up, treat as incorrect answer
+        setScore((prevScore) => (prevScore > 0 ? prevScore - 50 : 0));
+        setStreak(0);
+        setScoreFeedback(`-50 points!`);
+        displayFeedback(false);
+
+        moveToNextOrEndGame();
+    }, [gameState, displayFeedback, moveToNextOrEndGame]);
+
     // 2. Handle timer
     useEffect(() => {
         if(gameState === "playing") {
@@ -100,7 +139,7 @@ function VocabSprint() {
                 clearInterval(timerIntervalRef.current);
             }
         };  
-    }, [gameState, currentQuestionIndex]);
+    }, [gameState, currentQuestionIndex, handleTimeUp]);
 
     // Effect to clear the score feedback pop-up
     useEffect(() => {
@@ -111,32 +150,6 @@ function VocabSprint() {
         return () => clearTimeout(timer);
     }
     }, [scoreFeedback]);
-
-    // Handle moving to next question or ending game when time is up
-    const moveToNextOrEndGame = () => {
-        const isLastQuestion = currentQuestionIndex >= questions.length - 1;
-
-        if(isLastQuestion) {
-            setTimeout(() => {
-                setGameState("ended");
-            }, 750);
-        } else {
-            setCurrentQuestionIndex(prevIndex => prevIndex + 1);
-        }
-    };
-
-    // Handle when time is up for a question
-    const handleTimeUp = () => {
-        if(gameState !== "playing") return;
-
-        // Time's up, treat as incorrect answer
-        setScore((prevScore) => (prevScore > 0 ? prevScore - 50 : 0));
-        setStreak(0);
-        setScoreFeedback(`-50 points!`);
-        displayFeedback(false);
-
-        moveToNextOrEndGame();
-    }
 
     // 3. Handle clicked answer
     const handleAnswerClick = (isCorrect) => {
@@ -166,19 +179,6 @@ function VocabSprint() {
 
         // Move to next question or end game if it was the last question
         moveToNextOrEndGame();
-    };
-
-    // 4. Display visual feedback
-    const displayFeedback = (isCorrect) => {
-        const feedbackClass = isCorrect ? "correct-feedback" : "incorrect-feedback";
-        if(gameContainerRef.current) {
-            gameContainerRef.current.classList.add(feedbackClass);
-            setTimeout(() => {
-                if(gameContainerRef.current) {
-                    gameContainerRef.current.classList.remove(feedbackClass);
-                }
-            }, 300);
-        }
     };
 
   // 5. Render component based on game state
