@@ -85,7 +85,7 @@ function Learning({ userData, setUserData, firestoreDocId }) {
 
   return (
     <>
-      {isGamified && (
+      {(
         <div className="learning-header-fixed">
           <div className="unique-code-banner">
             <span className="code-label">Your Unique Code:</span>
@@ -99,12 +99,6 @@ function Learning({ userData, setUserData, firestoreDocId }) {
         {!isGamified && (
           <div>
             <h1 className="center">Learning Session</h1>
-            <p className="center">
-              In case you disconnect, you can use the code below to continue your learning course.
-            </p>
-            <p className="center">
-              Unique code: <strong>{userID}</strong>
-            </p>
           </div>
         )}
         <br />
@@ -130,19 +124,19 @@ function Learning({ userData, setUserData, firestoreDocId }) {
                 />
                 ) : (
                   /* Step 2: Show proceed screen, then practice phase - VocabSprint */
-                  <div>
+                  <div className="vocab-sprint-container center fade-in">
                     {!showPractice ? (
                       <div style={{ 
-                        backgroundColor: '#4CAF50', 
-                        color: 'white', 
                         padding: '18px', 
                         textAlign: 'center',
                         marginBottom: '20px',
                         borderRadius: '10px'
                       }}>
-                        <h3 style={{ margin: '0 0 10px 0' }}>🎉 Teaching Phase Complete!</h3>
+                        <h2 style={{ margin: '0 0 10px 0' }}>🎉 Teaching Phase Complete! 🎉</h2>
                         <p style={{ margin: '0 0 14px 0' }}>Great job finishing all regions.</p>
-                        <p style={{ margin: '0 0 14px 0' }}>Next up is a fast-paced game to test your vocabulary knowledge.</p>
+                        <p style={{ margin: '0 0 14px 0' }}>Next game is the <strong>Vocab Velocity</strong>.</p>
+                        <p style={{ margin: '0 0 14px 0' }}>It is a fast-paced game to test your knowledge.</p>
+                        <br />
                         <button
                           type="button"
                           onClick={() => setShowPractice(true)}

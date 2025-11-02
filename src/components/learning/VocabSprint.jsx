@@ -188,10 +188,10 @@ function VocabSprint() {
 
   if(gameState === "ended") {
       return (
-          <div className="vocab-sprint-container center fade-in">
+          <div>
               <h2>Game Over!</h2>
               <p className="vocab-sprint-end-screen">Your final score: {score}</p>
-              <p>Please click the button below to continue.</p>
+              <p>Please click the button below to take the Post-Test.</p>
           </div>
       );
   }
@@ -202,7 +202,7 @@ function VocabSprint() {
   const progressPercent = ((currentQuestionIndex + 1) / questions.length) * 100;
 
   return (
-      <div className="vocab-sprint-container" ref={gameContainerRef}>
+      <div ref={gameContainerRef}>
           {scoreFeedback && (
               <div className={`score-popup ${scoreFeedback.startsWith('+') ? 'correct' : 'incorrect'}`}>
                   {scoreFeedback}
