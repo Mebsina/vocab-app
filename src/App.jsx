@@ -6,6 +6,7 @@ import Consent from "./components/Consent";
 import PreTest from "./components/test/PreTest";
 import Learning from "./components/learning/Learning";
 import PostTest from "./components/test/PostTest";
+import PostTestScore from "./components/test/PostTestScore";
 import Imi from "./components/Imi";
 import Thankyou from "./components/Thankyou";
 import Continue from "./components/Continue";
@@ -59,6 +60,15 @@ function App() {
                   setUserData={setUserData}
                   firestoreDocId={firestoreDocId}
                 />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/posttest-score"
+            element={
+              <ProtectedRoute firestoreDocId={firestoreDocId}>
+                <PostTestScore userData={userData} />
               </ProtectedRoute>
             }
           />

@@ -182,6 +182,15 @@ function Test({
       {navbar}
       <main>
         <h1 className="center">{title}</h1>
+        <div className="test-instructions">
+          <h3 className="instructions-title">Instructions</h3>
+          <p className="instructions-text">
+            Below you will see a series of words. For each word, select the definition that best matches it by clicking on your choice.
+          </p>
+          <p className="instructions-text">
+            Read each word carefully and choose the correct definition from the four options provided. You can change your answer before submitting the test.
+          </p>
+        </div>
         <form onSubmit={handleSubmit}>
           {questions.map((question, index) => (
             <div key={question.word}>

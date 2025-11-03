@@ -5,7 +5,7 @@ function PostTest({ userData, setUserData, firestoreDocId }) {
     <Test
       title="Post-Test"
       submitButtonText="Submit"
-      onSubmitNavigateTo="/imi"
+      onSubmitNavigateTo="/posttest-score"
       setUserData={setUserData}
       userData={userData}
       firestoreDocId={firestoreDocId}

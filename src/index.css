@@ -118,6 +118,33 @@ nav a {
 }
 
 /* PreTest.jsx, PostTest.jsx */
+.test-instructions {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border: 2px solid var(--green);
+  border-radius: 12px;
+  padding: 20px;
+  margin: 20px auto 30px;
+  max-width: 800px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.instructions-title {
+  color: var(--green);
+  font-size: 1.5rem;
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.instructions-text {
+  color: #333;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 10px 0;
+  text-align: left;
+}
+
 .choice-box {
   display: block;
   padding: 12px;
@@ -206,6 +233,12 @@ th {
   .code-value {
     font-size: 1.5rem;
   }
+  .instructions-title {
+    font-size: 1.6rem;
+  }
+  .instructions-text {
+    font-size: 1.05rem;
+  }
 }
 
 @media (min-width: 768px) {
@@ -224,6 +257,15 @@ th {
   }
   .ty {
     font-size: 2rem;
+  }
+  .test-instructions {
+    padding: 25px;
+  }
+  .instructions-title {
+    font-size: 1.8rem;
+  }
+  .instructions-text {
+    font-size: 1.1rem;
   }
 }
 
