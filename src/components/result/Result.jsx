@@ -84,25 +84,27 @@ function Result() {
         };
 
         const calculateCohensD = (scores1, scores2) => {
-          const differences = scores1.map((score, index) => score - scores2[index]);
-          const meanDifference = differences.reduce((a, b) => a + b, 0) / differences.length;
-          const stdDevDifference = calculateStandardDeviation(differences, meanDifference);
-          if (stdDevDifference === 0) return 0;
-          return meanDifference / stdDevDifference;
+          const mean1 = scores1.reduce((a, b) => a + b, 0) / scores1.length;
+          const mean2 = scores2.reduce((a, b) => a + b, 0) / scores2.length;
+          const stdDev1 = calculateStandardDeviation(scores1, mean1);
+          const stdDev2 = calculateStandardDeviation(scores2, mean2);
+          const n1 = scores1.length;
+          const n2 = scores2.length;
+
+          if (n1 < 2 || n2 < 2) return 0;
+
+          const pooledStdDev = Math.sqrt(((n1 - 1) * Math.pow(stdDev1, 2) + (n2 - 1) * Math.pow(stdDev2, 2)) / (n1 + n2 - 2));
+          if (pooledStdDev === 0) return 0;
+
+          return (mean1 - mean2) / pooledStdDev;
         };
 
-        // Calculate averages and Cohen's d
+        // Calculate averages
         for (const groupKey in aggregatedData) {
           const group = aggregatedData[groupKey];
           if (group.count > 0) {
-            const meanPreTest = group.preTestScore / group.count;
-            const meanPostTest = group.postTestScore / group.count;
-
-            group.preTestScore = meanPreTest;
-            group.postTestScore = meanPostTest;
-
-            group.cohensD = calculateCohensD(group.postTestScores, group.preTestScores);
-
+            group.preTestScore /= group.count;
+            group.postTestScore /= group.count;
             group.preTestTime /= group.count;
             group.timeOnTask /= group.count;
             group.postTestTime /= group.count;
@@ -112,6 +114,16 @@ function Result() {
             }
           }
         }
+
+        // Calculate Cohen's d for independent samples
+        aggregatedData.gamified_native.cohensD = calculateCohensD(
+          aggregatedData.gamified_native.postTestScores,
+          aggregatedData.non_gamified_native.postTestScores
+        );
+        aggregatedData.gamified_non_native.cohensD = calculateCohensD(
+          aggregatedData.gamified_non_native.postTestScores,
+          aggregatedData.non_gamified_non_native.postTestScores
+        );
 
         setResults(aggregatedData);
       } catch (error) {
@@ -203,8 +215,8 @@ function Result() {
               <td className="left">Cohen's <i>d</i></td>
               <td>{results.gamified_native.cohensD.toFixed(2)}</td>
               <td>{results.gamified_non_native.cohensD.toFixed(2)}</td>
-              <td>{results.non_gamified_native.cohensD.toFixed(2)}</td>
-              <td>{results.non_gamified_non_native.cohensD.toFixed(2)}</td>
+              <td>-</td>
+              <td>-</td>
             </tr>
             <tr>
               <td className="left">IMI Time</td>
