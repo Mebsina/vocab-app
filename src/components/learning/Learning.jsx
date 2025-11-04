@@ -39,7 +39,6 @@ function Learning({ userData, setUserData, firestoreDocId }) {
         await updateDoc(docRef, {
           learning: learningData.learning,
         });
-        console.log("Document successfully updated with learning data.");
       } catch (error) {
         console.error("Error updating document: ", error);
       }

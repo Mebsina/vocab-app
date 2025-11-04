@@ -34,13 +34,11 @@ function Imi({ userData, setUserData, firestoreDocId }) {
     };
 
     setUserData(updatedUserData);
-    console.log("User Data: ", JSON.stringify(updatedUserData, null, 2));
 
     if (firestoreDocId) {
       try {
         const docRef = doc(db, "users", firestoreDocId);
         await updateDoc(docRef, { imi: imiAnswers });
-        console.log("Document updated with IMI data.");
       } catch (error) {
         console.error("Error updating document: ", error);
       }

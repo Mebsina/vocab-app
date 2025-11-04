@@ -21,7 +21,6 @@ function Consent({ onConsentSubmit }) {
 
     // pass this to App.jsx to be help temporarily
     onConsentSubmit(consentData);
-    console.log("Consent Data: ", consentData);
 
     navigate("/pretest");
   };
