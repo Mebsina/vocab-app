@@ -147,7 +147,6 @@ function Test({
 
         // Use setDoc with the uniqueUserID as the document ID
         await setDoc(doc(db, "users", uniqueUserID), finalUserData);
-        console.log("Document written with custom ID: ", uniqueUserID);
 
         // Save uniqueUserID to the App state
         setFirestoreDocId(uniqueUserID);
@@ -165,7 +164,6 @@ function Test({
         try {
           const docRef = doc(db, "users", firestoreDocId);
           await updateDoc(docRef, { postTest: testData });
-          console.log("Document updated with Post-Test data.");
         } catch (error) {
           console.error("Error updating document: ", error);
         }

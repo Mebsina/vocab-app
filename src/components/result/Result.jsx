@@ -77,26 +77,18 @@ function Result() {
           }
         });
 
-        // console.log("Gamified Native Pre-Test Scores:", aggregatedData.gamified_native.preTestScores);
-        // console.log("Gamified Native Post-Test Scores:", aggregatedData.gamified_native.postTestScores);
-        // console.log("Gamified Non-Native Pre-Test Scores:", aggregatedData.gamified_non_native.preTestScores);
-        // console.log("Gamified Non-Native Post-Test Scores:", aggregatedData.gamified_non_native.postTestScores);
-        // console.log("Non-Gamified Native Pre-Test Scores:", aggregatedData.non_gamified_native.preTestScores);
-        // console.log("Non-Gamified Native Post-Test Scores:", aggregatedData.non_gamified_native.postTestScores);
-        // console.log("Non-Gamified Non-Native Pre-Test Scores:", aggregatedData.non_gamified_non_native.preTestScores);
-        // console.log("Non-Gamified Non-Native Post-Test Scores:", aggregatedData.non_gamified_non_native.postTestScores);
-
         const calculateStandardDeviation = (array, mean) => {
           const n = array.length;
           if (n < 2) return 0;
           return Math.sqrt(array.map(x => Math.pow(x - mean, 2)).reduce((a, b) => a + b) / (n - 1));
         };
 
-        const calculateCohensD = (mean1, mean2, stdDev1, stdDev2, n1, n2) => {
-          if (n1 < 2 || n2 < 2) return 0;
-          const pooledStdDev = Math.sqrt(((n1 - 1) * Math.pow(stdDev1, 2) + (n2 - 1) * Math.pow(stdDev2, 2)) / (n1 + n2 - 2));
-          if (pooledStdDev === 0) return 0;
-          return (mean1 - mean2) / pooledStdDev;
+        const calculateCohensD = (scores1, scores2) => {
+          const differences = scores1.map((score, index) => score - scores2[index]);
+          const meanDifference = differences.reduce((a, b) => a + b, 0) / differences.length;
+          const stdDevDifference = calculateStandardDeviation(differences, meanDifference);
+          if (stdDevDifference === 0) return 0;
+          return meanDifference / stdDevDifference;
         };
 
         // Calculate averages and Cohen's d
@@ -106,13 +98,10 @@ function Result() {
             const meanPreTest = group.preTestScore / group.count;
             const meanPostTest = group.postTestScore / group.count;
 
-            const stdDevPreTest = calculateStandardDeviation(group.preTestScores, meanPreTest);
-            const stdDevPostTest = calculateStandardDeviation(group.postTestScores, meanPostTest);
-
             group.preTestScore = meanPreTest;
             group.postTestScore = meanPostTest;
 
-            group.cohensD = calculateCohensD(meanPostTest, meanPreTest, stdDevPostTest, stdDevPreTest, group.count, group.count);
+            group.cohensD = calculateCohensD(group.postTestScores, group.preTestScores);
 
             group.preTestTime /= group.count;
             group.timeOnTask /= group.count;
@@ -226,6 +215,14 @@ function Result() {
             </tr>
           </tbody>
         </table>
+
+        <h4>Cohen&apos;s <i>d</i> Interpretation</h4>
+        <p>
+          <b>0.2:</b> Gamified has a <b>small</b> effect size on Non-Gamified<br />
+          <b>0.5:</b> Gamified has a <b>medium</b> effect size on Non-Gamified<br />
+          <b>0.8:</b> Gamified has a <b>large</b> effect size on Non-Gamified<br />
+          <b>1.0+:</b> Gamified has a <b>very large</b> effect size on Non-Gamified
+        </p>
 
         <h2>The Motivational Experience & The Behavioral Outcome</h2>
         <table>
